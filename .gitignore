@@ -1,0 +1,28 @@
+# Compilados de Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE - IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# IDE - Eclipse / STS
+.settings/
+.project
+.classpath
+.springBeans
+.sts4-cache/
+bin/
+
+# IDE - VS Code
+.vscode/
+
+# Logs y temporales
+*.log
+*.tmp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
