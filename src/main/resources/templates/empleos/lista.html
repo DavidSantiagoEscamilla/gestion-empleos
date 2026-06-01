@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Empleos</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <h1>Sistema de Gestion</h1>
+    <div>
+        <a th:href="@{/}">Inicio</a>
+        <a th:href="@{/usuarios}">Usuarios</a>
+        <a th:href="@{/empleos}">Empleos</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card">
+        <div class="barra-superior">
+            <h2 class="titulo">Listado de Empleos</h2>
+            <a th:href="@{/empleos/nuevo}" class="btn btn-primary">+ Nuevo Empleo</a>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+                <th>Area de Trabajo</th>
+                <th>Empresa</th>
+                <th>Nivel</th>
+                <th>Sueldo</th>
+                <th>Funciones</th>
+                <th>Cargo del Jefe</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="empleo : ${empleos}">
+                <td th:text="${empleo.id}">1</td>
+                <td th:text="${empleo.nombre}">Nombre</td>
+                <td th:text="${empleo.categoria}">Categoria</td>
+                <td th:text="${empleo.areaTrabajo}">Area</td>
+                <td th:text="${empleo.empresa}">Empresa</td>
+                <td th:text="${empleo.nivel}">Nivel</td>
+                <td th:text="${#numbers.formatCurrency(empleo.sueldo)}">$0</td>
+                <td th:text="${empleo.funciones}">Funciones</td>
+                <td th:text="${empleo.cargoJefe}">Jefe</td>
+                <td>
+                    <div class="acciones">
+                        <a th:href="@{/empleos/editar/{id}(id=${empleo.id})}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{/empleos/eliminar/{id}(id=${empleo.id})}" class="btn btn-delete"
+                           onclick="return confirm('¿Esta seguro de eliminar este empleo?');">Eliminar</a>
+                    </div>
+                </td>
+            </tr>
+            <tr th:if="${empleos.isEmpty()}">
+                <td colspan="10" class="vacio">No hay empleos registrados.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
