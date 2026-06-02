@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * Controlador MVC de Usuario.
- * Gestiona las rutas del CRUD y devuelve las vistas Thymeleaf.
+ * Replica el modelo de las guias del profesor.
  */
 @Controller
 @RequestMapping("/usuarios")
@@ -25,44 +25,43 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    // READ / LIST -> lista de usuarios
+    // LIST
     @GetMapping
     public String listar(Model model) {
         model.addAttribute("usuarios", usuarioService.listarTodos());
         return "usuarios/lista";
     }
 
-    // CREATE -> mostrar formulario vacio
-    @GetMapping("/nuevo")
-    public String formularioNuevo(Model model) {
+    // CREATE - mostrar formulario
+    @GetMapping("/agregar")
+    public String agregar(Model model) {
         model.addAttribute("usuario", new Usuario());
         return "usuarios/formulario";
     }
 
-    // UPDATE -> mostrar formulario con datos existentes
-    @GetMapping("/editar/{id}")
-    public String formularioEditar(@PathVariable Long id, Model model) {
-        Usuario usuario = usuarioService.buscarPorId(id)
-                .orElseThrow(() -> new IllegalArgumentException("ID de usuario invalido: " + id));
+    // UPDATE - mostrar formulario con datos
+    @GetMapping("/editar/{cedula}")
+    public String editar(@PathVariable String cedula, Model model) {
+        Usuario usuario = usuarioService.buscarPorId(cedula)
+                .orElseThrow(() -> new IllegalArgumentException("Cedula invalida: " + cedula));
         model.addAttribute("usuario", usuario);
         return "usuarios/formulario";
     }
 
-    // CREATE / UPDATE -> guardar (mismo metodo para crear y editar)
+    // CREATE / UPDATE - guardar
     @PostMapping("/guardar")
     public String guardar(@Valid Usuario usuario, BindingResult result) {
         if (result.hasErrors()) {
-            // Si hay errores de validacion, regresa al formulario
             return "usuarios/formulario";
         }
         usuarioService.guardar(usuario);
         return "redirect:/usuarios";
     }
 
-    // DELETE -> eliminar por id
-    @GetMapping("/eliminar/{id}")
-    public String eliminar(@PathVariable Long id) {
-        usuarioService.eliminar(id);
+    // DELETE
+    @GetMapping("/eliminar/{cedula}")
+    public String eliminar(@PathVariable String cedula) {
+        usuarioService.eliminar(cedula);
         return "redirect:/usuarios";
     }
 }
