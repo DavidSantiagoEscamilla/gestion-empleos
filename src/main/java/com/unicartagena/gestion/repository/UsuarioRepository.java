@@ -5,10 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Capa de acceso a datos (DAO) para Usuario.
- * Al extender JpaRepository ya hereda save(), findAll(),
- * findById(), deleteById(), etc. sin escribir SQL.
+ * Capa de acceso a datos para Usuario.
+ * La clave primaria es String (cedula).
  */
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+public interface UsuarioRepository extends JpaRepository<Usuario, String> {
 }

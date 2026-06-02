@@ -2,12 +2,10 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Usuarios</title>
     <link rel="stylesheet" th:href="@{/css/estilos.css}">
 </head>
 <body>
-
 <nav class="navbar">
     <h1>Sistema de Gestion</h1>
     <div>
@@ -16,47 +14,42 @@
         <a th:href="@{/empleos}">Empleos</a>
     </div>
 </nav>
-
 <div class="container">
     <div class="card">
         <div class="barra-superior">
             <h2 class="titulo">Listado de Usuarios</h2>
-            <a th:href="@{/usuarios/nuevo}" class="btn btn-primary">+ Nuevo Usuario</a>
+            <a th:href="@{/usuarios/agregar}" class="btn btn-primary">+ Nuevo Usuario</a>
         </div>
-
         <table>
             <thead>
             <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>Acciones</th>
+                <th>CEDULA</th>
+                <th>CLAVE</th>
+                <th>NOMBRE</th>
+                <th>EMAIL</th>
+                <th>ACCIONES</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="usuario : ${usuarios}">
-                <td th:text="${usuario.id}">1</td>
-                <td th:text="${usuario.nombre}">Nombre</td>
-                <td th:text="${usuario.apellido}">Apellido</td>
-                <td th:text="${usuario.email}">correo@mail.com</td>
-                <td th:text="${usuario.telefono}">300...</td>
+                <td th:text="${usuario.cedula}"></td>
+                <td th:text="${usuario.clave}"></td>
+                <td th:text="${usuario.nombre}"></td>
+                <td th:text="${usuario.email}"></td>
                 <td>
                     <div class="acciones">
-                        <a th:href="@{/usuarios/editar/{id}(id=${usuario.id})}" class="btn btn-edit">Editar</a>
-                        <a th:href="@{/usuarios/eliminar/{id}(id=${usuario.id})}" class="btn btn-delete"
-                           onclick="return confirm('¿Esta seguro de eliminar este usuario?');">Eliminar</a>
+                        <a th:href="@{/usuarios/editar/{c}(c=${usuario.cedula})}" class="btn btn-edit">Editar</a>
+                        <a th:href="@{/usuarios/eliminar/{c}(c=${usuario.cedula})}" class="btn btn-delete"
+                           onclick="return confirm('¿Eliminar este usuario?');">Eliminar</a>
                     </div>
                 </td>
             </tr>
             <tr th:if="${usuarios.isEmpty()}">
-                <td colspan="6" class="vacio">No hay usuarios registrados.</td>
+                <td colspan="5" class="vacio">No hay usuarios registrados.</td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-
 </body>
 </html>
